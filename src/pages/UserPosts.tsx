@@ -3,6 +3,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { usePosts, useCreatePost, useDeletePost } from '../hooks/usePosts';
 import { useUser } from '../hooks/useUser';
 import PostCard from '../components/PostCard';
+import LoadingSpinner from '../components/LoadingSpinner';
 import CloseIcon from '../assets/icons/CloseIcon';
 import type { CreatePostRequest } from '../types';
 
@@ -51,8 +52,10 @@ const UserPosts = () => {
 
   if (postsLoading || userLoading) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-white">
-        <div className="text-lg text-gray-600">Loading...</div>
+      <div className="min-h-screen bg-white py-8 px-4">
+        <div className="max-w-6xl mx-auto">
+          <LoadingSpinner />
+        </div>
       </div>
     );
   }
