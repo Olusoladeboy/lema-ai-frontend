@@ -1,15 +1,14 @@
-import type { Post } from '../types';
+import type { PostCardProps } from '../types';
 import TrashIcon from '../assets/icons/TrashIcon';
-
-interface PostCardProps {
-  post: Post;
-  onDelete: (postId: string) => void;
-  isDeleting?: boolean;
-}
 
 const PostCard = ({ post, onDelete, isDeleting = false }: PostCardProps) => {
   return (
-    <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 relative h-[200px] flex flex-col overflow-hidden">
+    <div
+      className="bg-white rounded-lg border border-gray-200 p-6 relative h-[293px] w-[270px] flex flex-col overflow-hidden"
+      style={{
+        boxShadow: '0px 2px 4px -1px #0000000F, 0px 4px 6px -1px #0000001A',
+      }}
+    >
       <button
         onClick={() => onDelete(post.id)}
         disabled={isDeleting}
@@ -18,7 +17,20 @@ const PostCard = ({ post, onDelete, isDeleting = false }: PostCardProps) => {
       >
         <TrashIcon />
       </button>
-      <h3 className="text-lg font-semibold text-gray-900 mb-3 pr-8 flex-shrink-0">{post.title}</h3>
+      <h3 
+        className="text-lg font-semibold text-gray-900 mb-3 pr-8 flex-shrink-0"
+        style={{
+          display: '-webkit-box',
+          WebkitLineClamp: 2,
+          WebkitBoxOrient: 'vertical',
+          overflow: 'hidden',
+          textOverflow: 'ellipsis',
+          lineHeight: '1.5',
+        }}
+        title={post.title}
+      >
+        {post.title}
+      </h3>
       <div className="flex-grow overflow-hidden">
         <p 
           className="text-gray-600 text-sm m-0"
@@ -30,6 +42,7 @@ const PostCard = ({ post, onDelete, isDeleting = false }: PostCardProps) => {
             textOverflow: 'ellipsis',
             lineHeight: '1.5',
           }}
+          title={post.body}
         >
           {post.body}
         </p>

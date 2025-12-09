@@ -22,20 +22,17 @@ export const useCreatePost = () => {
   });
 };
 
-export const useDeletePost = () => {
+export const useDeletePost = (userId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: (postId: string) => postsApi.deletePost(postId),
     onMutate: async (postId) => {
-      // Cancel any outgoing refetches
-      await queryClient.cancelQueries({ queryKey: ['posts'] });
+      await queryClient.cancelQueries({ queryKey: ['posts', userId] });
 
-      // Snapshot the previous value
-      const previousPosts = queryClient.getQueriesData({ queryKey: ['posts'] });
+      const previousPosts = queryClient.getQueryData<Post[]>(['posts', userId]);
 
-      // Optimistically update by removing the post from all post queries
-      queryClient.setQueriesData<Post[]>({ queryKey: ['posts'] }, (old) => {
+      queryClient.setQueryData<Post[]>(['posts', userId], (old) => {
         if (!old) return old;
         return old.filter((post) => post.id !== postId);
       });
@@ -43,16 +40,12 @@ export const useDeletePost = () => {
       return { previousPosts };
     },
     onError: (_err, _postId, context) => {
-      // Rollback on error
       if (context?.previousPosts) {
-        context.previousPosts.forEach(([queryKey, data]) => {
-          queryClient.setQueryData(queryKey, data);
-        });
+        queryClient.setQueryData(['posts', userId], context.previousPosts);
       }
     },
     onSettled: () => {
-      // Refetch after error or success
-      queryClient.invalidateQueries({ queryKey: ['posts'] });
+      queryClient.invalidateQueries({ queryKey: ['posts', userId] });
     },
   });
 };

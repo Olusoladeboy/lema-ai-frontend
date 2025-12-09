@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 export interface User {
   id: string;
   name: string;
@@ -23,5 +25,32 @@ export interface CreatePostRequest {
   title: string;
   body: string;
   userId: string;
+}
+
+export interface PostCardProps {
+  post: Post;
+  onDelete: (postId: string) => void;
+  isDeleting?: boolean;
+}
+
+export interface DeleteConfirmationModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onConfirm: () => void;
+  isDeleting: boolean;
+  postTitle?: string;
+}
+
+export interface ErrorBoundaryProps {
+  children: ReactNode;
+  fallback?: ReactNode;
+}
+
+export interface CloseIconProps {
+  className?: string;
+}
+
+export interface TrashIconProps {
+  className?: string;
 }
 

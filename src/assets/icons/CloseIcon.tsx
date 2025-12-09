@@ -1,6 +1,4 @@
-interface CloseIconProps {
-  className?: string;
-}
+import type { CloseIconProps } from '../types';
 
 const CloseIcon = ({ className = "w-6 h-6" }: CloseIconProps) => {
   return (
