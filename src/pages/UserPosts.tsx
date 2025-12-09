@@ -191,6 +191,7 @@ const UserPosts = () => {
                     </button>
                   </div>
                   <form onSubmit={handleSubmit}>
+
                     <div className="mb-4">
                       <div className="flex justify-between items-center mb-2">
                         <label htmlFor="title" className="block text-sm font-medium text-gray-700">
@@ -205,16 +206,15 @@ const UserPosts = () => {
                         id="title"
                         value={formData.title}
                         onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                        maxLength={TITLE_MAX_LENGTH}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required
+                        className={`w-full px-3 py-2 border ${formData.title.length > TITLE_MAX_LENGTH ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
                       />
-                      {formData.title.length > TITLE_MAX_LENGTH && (
+                      {formData.title.length >= TITLE_MAX_LENGTH && (
                         <p className="mt-1 text-sm text-red-600">
-                          Title must be {TITLE_MAX_LENGTH} characters or less
+                          Title cannot exceed {TITLE_MAX_LENGTH} characters.
                         </p>
                       )}
                     </div>
+
                     <div className="mb-6">
                       <div className="flex justify-between items-center mb-2">
                         <label htmlFor="body" className="block text-sm font-medium text-gray-700">
@@ -228,15 +228,13 @@ const UserPosts = () => {
                         id="body"
                         value={formData.body}
                         onChange={(e) => setFormData({ ...formData, body: e.target.value })}
-                        maxLength={BODY_MAX_LENGTH}
                         rows={6}
                         style={{ resize: 'none' }}
-                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                        required
+                        className={`w-full px-3 py-2 border ${formData.body.length > BODY_MAX_LENGTH ? 'border-red-500' : 'border-gray-300'} rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500`}
                       />
-                      {formData.body.length > BODY_MAX_LENGTH && (
+                      {formData.body.length >= BODY_MAX_LENGTH && (
                         <p className="mt-1 text-sm text-red-600">
-                          Body must be {BODY_MAX_LENGTH} characters or less
+                          Body cannot exceed {BODY_MAX_LENGTH} characters.
                         </p>
                       )}
                     </div>
