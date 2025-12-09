@@ -1,4 +1,4 @@
-import type { TrashIconProps } from '../types';
+import type { TrashIconProps } from "../../types";
 
 const TrashIcon = ({ className = "h-5 w-5" }: TrashIconProps) => {
   return (
