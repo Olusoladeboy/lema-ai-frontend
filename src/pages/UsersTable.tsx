@@ -68,7 +68,7 @@ const UsersTable = () => {
 
   return (
     <div className="min-h-screen bg-white py-48 px-4">
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-[880px] mx-auto">
         <h1 className="text-6xl font-semibold text-gray-900 mb-8">Users</h1>
         
         <div className={`bg-white border border-gray-200 rounded-lg overflow-hidden min-h-[262px] ${isLoading ? 'flex items-center justify-center' : ''}`}>
